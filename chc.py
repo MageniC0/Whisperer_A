@@ -1,7 +1,9 @@
+#输入两个颜色，得到chc
+#须要有"fff0.png"
+
 #预处理
 from PIL import Image
 
-#创建画布
 image = Image.new( "RGBA", (13, 13 ) )
 pixels = [(0, 0, 0, 0) for _ in range(13 * 13 ) ]
 
