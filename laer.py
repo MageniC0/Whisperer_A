@@ -1,3 +1,5 @@
+#须要有”0001.png”
+
 #预处理
 from PIL import Image
 print("loading...")
