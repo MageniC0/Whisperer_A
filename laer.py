@@ -1,11 +1,13 @@
 #预处理
 from PIL import Image
 print("loading...")
-cell = Image.open("0001.png")
+basic_image = Image.open("0001.png")
 back = Image.new( "RGBA", (49,47))
 shc = Image.new('RGBA', (13, 13), (0,0,0,0))
 cube = cell.copy()
-sh = shc.copy()
+shadow = shc.copy()
+
+trr = [[[0 for _ in range(4)]for _ in range(4)]for _ in range (4)]
 
 #任务表
 trr = [
@@ -80,20 +82,12 @@ for zu in range(4):
                     if(d[2] == 0):
                         p.update(rd)
                 for u in p:
-                    sh.putpixel(u,(0,0,0,63))
-                cube.alpha_composite(sh)
+                    shadow.putpixel(u,(0,0,0,63))
+                cube.alpha_composite(shadow)
                 back.alpha_composite(cube,(mh,nh))
-                sh = shc.copy()
-                cube = cell.copy()
+                shadow = shc.copy()
+                cube = basic_image.copy()
 #完成
 back.save(name )
 back.show()
 print(f"saved as {name}.")
-
-
-
-
-
-
-
-
