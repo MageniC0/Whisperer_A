@@ -1,16 +1,16 @@
 #预处理
 from PIL import Image
 print("loading...")
-basic_image = Image.open("0001.png")
-back = Image.new( "RGBA", (49,47))
-shc = Image.new('RGBA', (13, 13), (0,0,0,0))
-cube = cell.copy()
-shadow = shc.copy()
+basic_image = Image.open("0001.png")#要堆叠的方块
+back = Image.new( "RGBA", (49,47))#4*4*4画布
+shadow_basic = Image.new('RGBA', (13, 13), (0,0,0,0))#表面渲染空间
+cube = cell.copy()#直接堆叠物
+shadow = shadow_basic.copy()#对于直接堆叠物的最终表面渲染
 
-trr = [[[0 for _ in range(4)]for _ in range(4)]for _ in range (4)]
+terraria = [[[0 for _ in range(4)]for _ in range(4)]for _ in range (4)]
 
 #任务表
-trr = [
+terraria = [
     #z = 1
     [[1,1,1,1],
      [1,1,1,1],
@@ -33,13 +33,13 @@ trr = [
      [1,0,0,0]]
 ]
 i = j = 1
-trrs = [[[0,0,0,0,0,0] for _ in range(6)] for _ in range(6)]
+terraria_basic = [[[0,0,0,0,0,0] for _ in range(6)] for _ in range(6)]
 for zh in range(4):
     j = zh + 1
     for yh in range(4):
         i = yh + 1
         for xh in range(4):
-            trrs[j][i][xh+1] = trr[zh][yh][xh]
+            terraria_basic[j][i][xh+1] = terraria[zh][yh][xh]
 l = {(0,3),(0,4),(0,5),(0,6),(0,7),(0,8),(0,9),(0,10)}
 r = {(12,3),(12,4),(12,5),(12,6),(12,7),(12,8),(12,9),(12,10)}
 m = {(6,5),(6,6),(6,7),(6,8),(6,9),(6,10),(6,11),(6,12)}
@@ -55,13 +55,13 @@ print("loading terrain...")
 for zu in range(4):
     for yu in range(4):
         for xu in range(4):
-            if(trr[zu][yu][xu]):
+            if(terraria[zu][yu][xu]):
                 mh = 18 - 6 * xu + 6 * yu
                 nh = 24 + 2 * xu + 2 * yu - 8 * zu
                 x = xu + 1
                 y = yu + 1
                 z = zu + 1
-                d = [trrs[z][y][x+1],trrs[z][y][x-1],trrs[z][y+1][x],trrs[z][y-1][x],trrs[z+1][y][x],trrs[z-1][y][x],trrs[z][y+1][x-1],trrs[z][y-1][x+1]]
+                d = [terraria_basic[z][y][x+1],terraria_basic[z][y][x-1],terraria_basic[z][y+1][x],terraria_basic[z][y-1][x],terraria_basic[z+1][y][x],terraria_basic[z-1][y][x],terraria_basic[z][y+1][x-1],terraria_basic[z][y-1][x+1]]
                 p = {}
                 if(d[0] == 0 and d[3] == 0 and d[6] == 0):
                     p.update(l)
@@ -85,7 +85,7 @@ for zu in range(4):
                     shadow.putpixel(u,(0,0,0,63))
                 cube.alpha_composite(shadow)
                 back.alpha_composite(cube,(mh,nh))
-                shadow = shc.copy()
+                shadow = shadow_basic.copy()
                 cube = basic_image.copy()
 #完成
 back.save(name )
