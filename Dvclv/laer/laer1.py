@@ -1,7 +1,11 @@
 from PIL import Image
 import json
 
+file_name = input("picture name:" ) + ".png"
+map_name = print("map name:") + ".json"
+trr_name = map_name  #...
 print("loading...")
+
 bitmap = Image.new( "RGBA", (49,49))
 shadow_basic = Image.new('RGBA', (13, 13), (0,0,0,0))
 shadow_image = shadow_basic.copy()
@@ -18,9 +22,6 @@ for trrz in range(4):
             if trr[trrz][trry][trrx] != "ffff":
                 trr_near[trrsy][trrsz][trrx+1] = 1
 
-#数据传送
-file_name = input("name:" ) + ".png"
-print("loading terrain...")
 for z_with in range(4):
     for y_with in range(4):
         for x_with in range(4):
@@ -39,7 +40,7 @@ for z_with in range(4):
                     trr_near[z-1][y][x],
                     trr_near[z][y-1][x+1],
                     trr_near[z][y+1][x-1]]
-                    
+                
                 shadow1 = near[0] + 2 * near[1] + 4 * near[2] + 8 * near[3]
                 shadow1 = format(shadow1, 'x').zfill(1)
                 shadow2 = near[4] + 2 * near[5] + 4 * near[6] + 8 * near[7]
