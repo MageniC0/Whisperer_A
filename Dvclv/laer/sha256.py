@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw
 
 # 初始化表面和绘图对象
 s = Image.new('RGBA', (13, 13), (0, 0, 0, 0))
-dr = ImageDraw.Draw(s)
+draw = ImageDraw.Draw(s)
 c = (0, 0, 0, 31)
 
 left_side = {(0,3),(0,4),(0,5),(0,6),(0,7),(0,8),(0,9),(0,10)}
@@ -16,7 +16,7 @@ in_tot = {(3,4),(3,5),(4,4),(4,5),(5,5),(5,6)}
 
 def d(l):
     for pos in l:
-        dr.point(pos,c)
+        draw.point(pos,c)
 
 # 主循环，遍历所有可能的8位二进制数
 for i in range(256):
@@ -40,16 +40,10 @@ for i in range(256):
         d(in_mid)
         if tb[4] == 0:
             d(in_tot)
-    h1 = tb[0] + 2 * tb[1] + 4 * tb[2] + 8 * tb[3]
-    h2 = tb[4] + 2 * tb[5] + 4 * tb[6] + 8 * tb[7]
-    h1 = format(h1, 'x').zfill(1)
-    if h1 == "10":
-        h1 = "0"
-    h2 = format(h2, 'x').zfill(1)
-    if h2 == "10":
-        h2 = "0"
-    fname = f"20{h2}{h1}.png"
+    h1 = tb[0] + 2 * tb[1] + 4 * tb[2] + 8 * tb[3]+ 16 * tb[4] + 32 * tb[5] + 64 * tb[6] + 128 * tb[7]
+    h2 = hex(h1+4352)
+    fname = f"{h2}.png"
     s.save(fname)
-    dr.rectangle([(0, 0), (12, 12)], fill=(0, 0, 0, 0))
+    draw.rectangle([(0, 0), (12, 12)], fill=(0, 0, 0, 0))
 
 print("Images generated.")
