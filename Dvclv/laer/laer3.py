@@ -5,6 +5,7 @@ import os
 #选项
 file_name = input("picture name:" ) + ".png"
 trr_name = input("map name:") + ".json"
+trr_ = os.path.join("map",trr_name)
 print("loading...")
 
 #加载画布
@@ -13,7 +14,7 @@ shadow_basic = Image.new('RGBA', (13, 13), (0,0,0,0))
 shadow_image = shadow_basic.copy()
 
 #加载地形
-with open(trr_name, 'r', encoding='utf-8') as f:
+with open(trr_, 'r', encoding='utf-8') as f:
     trr = json.load(f)
 
 #加载资源文件
@@ -21,7 +22,7 @@ shadow = {}
 for i in range(65536):
     u = str(hex(i))
     shadow_name = f"{u}.png"
-    file_path = os.path.join("sors", shadow_name)
+    file_path = os.path.join("sor", shadow_name)
     loading = Image.open(file_path)
     if os.path.exists(file_path):
         loading = Image.open(file_path)
