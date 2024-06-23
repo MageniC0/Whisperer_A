@@ -1,8 +1,9 @@
 from PIL import Image
 import json
+import os
 
 file_name = input("picture name:" ) + ".png"
-map_name = print("map name:") + ".json"
+map_name = input("map name:") + ".json"
 trr_name = map_name  #...
 print("loading...")
 
@@ -12,6 +13,20 @@ shadow_image = shadow_basic.copy()
 
 with open('trr.json', 'r', encoding='utf-8') as f:
     trr = json.load(f)
+
+shadow = {}  
+folder_path = "sors"
+for i in range(65536):
+    u = str(hex(i))
+    shadow_name = f"{u}.png"
+    if os.path.exists(file_path)：
+        img = Image.open(file_path)
+        file_path = os.path.join(folder_path, shadow_name)
+        img = Image.open(file_path)
+        shadow[f'{i}'] = img
+    else:
+        shadow[f'{i}'] = 0
+
 trrsz = trrsy = 1
 trr_near = [[[0,0,0,0,0,0] for _ in range(6)] for _ in range(6)]
 for trrz in range(4):
@@ -39,15 +54,12 @@ for z_with in range(4):
                     trr_near[z+1][y][x],
                     trr_near[z-1][y][x],
                     trr_near[z][y-1][x+1],
-                    trr_near[z][y+1][x-1]]
-                
-                shadow1 = near[0] + 2 * near[1] + 4 * near[2] + 8 * near[3]
-                shadow1 = format(shadow1, 'x').zfill(1)
-                shadow2 = near[4] + 2 * near[5] + 4 * near[6] + 8 * near[7]
-                shadow2 = format(shadow2, 'x').zfill(1)
-                
-                shadow_name = f"ff{shadow2}{shadow1}.png"
-                shadow_image = Image.open(shadow_name)
+                    trr_near[z][y+1][x-1]
+                   ]
+
+                h1 = tb[0] + 2 * tb[1] + 4 * tb[2] + 8 * tb[3]+ 16 * tb[4] + 32 * tb[5] + 64 * tb[6] + 128 * tb[7]
+                h2 = hex(h1+4352)
+                shadow_image = shadow{h2}
                 
                 cube = Image.open(trr[z_with][y_with][x_with]+".png")
                 if trr[z_with][y_with][x_with] != "ffff":
