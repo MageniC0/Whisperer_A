@@ -4,8 +4,7 @@ import os
 
 #选项
 file_name = input("picture name:" ) + ".png"
-map_name = input("map name:") + ".json"
-trr_name = map_name  #...
+trr_name = input("map name:") + ".json"
 print("loading...")
 
 #加载画布
@@ -14,7 +13,7 @@ shadow_basic = Image.new('RGBA', (13, 13), (0,0,0,0))
 shadow_image = shadow_basic.copy()
 
 #加载地形
-with open(map_name, 'r', encoding='utf-8') as f:
+with open(trr_name, 'r', encoding='utf-8') as f:
     trr = json.load(f)
 
 #加载资源文件
